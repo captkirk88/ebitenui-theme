@@ -1,4 +1,4 @@
-package ui
+package theme
 
 import (
 	"image/color"
@@ -19,70 +19,24 @@ type Theme struct {
 	ContainerStyle   StyleState `yaml:"container"`
 	CaretStyle       StyleState `yaml:"caret"`
 	GraphicStyle     StyleState `yaml:"graphic"`
-	Font             text.Face
+	Font             text.Face  `yaml:"-"`
 }
 
+// Style represents the style data for a widget.
 type Style struct {
 	BackgroundColor color.RGBA        `yaml:"bg_color"`
 	ForegroundColor color.RGBA        `yaml:"fg_color"`
 	Image           *eimage.NineSlice `yaml:"image"`
 }
 
+// StyleState represents the style state data for a widget.
 type StyleState struct {
 	Idle       Style                  `yaml:"idle"`
 	Disabled   *Style                 `yaml:"disabled"`
 	Hover      *Style                 `yaml:"hover"`
 	Pressed    *Style                 `yaml:"pressed"`
 	CustomData map[string]interface{} `yaml:"custom_data"`
-	Font       *text.Face             `yaml:"font"`
-}
-
-// NewDarkTheme initializes and returns a dark theme.
-func NewDarkTheme(font text.Face) *Theme {
-	if font == nil {
-		panic("theme font is nil")
-	}
-
-	defaultStyle := StyleState{
-		Idle: Style{
-			BackgroundColor: color.RGBA{0x0f, 0x0f, 0x0f, 0xff},
-			ForegroundColor: color.RGBA{0xff, 0xff, 0xff, 0xff},
-		},
-		Disabled: &Style{
-			BackgroundColor: color.RGBA{0x88, 0x88, 0x88, 0xff},
-			ForegroundColor: color.RGBA{0x88, 0x88, 0x88, 0xff},
-		},
-		Hover: &Style{
-			BackgroundColor: color.RGBA{0x3f, 0x3f, 0x3f, 0xff},
-			ForegroundColor: color.RGBA{0xff, 0xff, 0xff, 0xff},
-		},
-		Pressed: &Style{
-			BackgroundColor: color.RGBA{0x64, 0x64, 0x64, 0xff},
-			ForegroundColor: color.RGBA{0xff, 0xff, 0xff, 0xff},
-		},
-	}
-	th := &Theme{
-
-		ButtonStyle:      defaultStyle,
-		LabelStyle:       defaultStyle,
-		TextStyle:        defaultStyle,
-		ProgressBarStyle: defaultStyle,
-		TextInputStyle:   defaultStyle,
-		ContainerStyle:   defaultStyle,
-		CaretStyle:       defaultStyle,
-		GraphicStyle:     defaultStyle,
-		Font:             font,
-	}
-
-	th.ButtonStyle.valid(th)
-	th.LabelStyle.valid(th)
-	th.TextStyle.valid(th)
-	th.ProgressBarStyle.valid(th)
-	th.TextInputStyle.valid(th)
-	th.ContainerStyle.valid(th)
-	th.CaretStyle.valid(th)
-	th.GraphicStyle.valid(th)
-	return th
+	Font       *text.Face             `yaml:"-"`
 }
 
 // Button returns the button options for the theme.
@@ -118,6 +72,7 @@ func (th *Theme) Label(text string) []widget.LabelOpt {
 	}
 }
 
+// Text returns the text options for the theme.
 func (th *Theme) Text(text string) []widget.TextOpt {
 	th.LabelStyle.valid(th)
 	return []widget.TextOpt{
