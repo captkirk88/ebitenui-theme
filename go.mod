@@ -2,6 +2,10 @@ module github.com/captkirk88/ebitenui-theme
 
 go 1.23.4
 
+require theme v0.0.0
+
+replace theme => ./theme
+
 require (
 	github.com/ebitenui/ebitenui v0.6.0
 	github.com/hajimehoshi/ebiten/v2 v2.8.6
