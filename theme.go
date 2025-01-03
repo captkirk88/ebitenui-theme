@@ -10,7 +10,7 @@ import (
 )
 
 
-var darkStyleState = styleState = StyleState{
+var darkStyleState = StyleState{
 	Idle: Style{
 		BackgroundColor: color.RGBA{0x0f, 0x0f, 0x0f, 0xff},
 		ForegroundColor: color.RGBA{0x00, 0x00, 0x00, 0xff},
