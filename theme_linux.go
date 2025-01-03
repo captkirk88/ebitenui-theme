@@ -2,7 +2,6 @@ package theme
 
 import (
 	"fmt"
-	"image/color"
 	"os/exec"
 	"strings"
 
@@ -10,7 +9,8 @@ import (
 )
 
 // NewTheme creates a new theme with the given font.
-// On Linux, the theme is defaulted to dark.
+// On Linux the theme is determined by the system theme, i.e. light or dark.
+// On Linux, the theme is defaulted to dark if the system theme is undetermined.
 func NewTheme(font text.Face) *Theme {
 	var styleState StyleState
 	var dark bool
@@ -22,43 +22,9 @@ func NewTheme(font text.Face) *Theme {
 		dark = true
 	}
 	if dark {
-		styleState = StyleState{
-			Idle: Style{
-				BackgroundColor: color.RGBA{0x0f, 0x0f, 0x0f, 0xff},
-				ForegroundColor: color.RGBA{0x00, 0x00, 0x00, 0xff},
-			},
-			Disabled: &Style{
-				BackgroundColor: color.RGBA{0x88, 0x88, 0x88, 0xff},
-				ForegroundColor: color.RGBA{0x00, 0x00, 0x00, 0xff},
-			},
-			Hover: &Style{
-				BackgroundColor: color.RGBA{0x3f, 0x3f, 0x3f, 0xff},
-				ForegroundColor: color.RGBA{0x3f, 0x3f, 0x3f, 0xff},
-			},
-			Pressed: &Style{
-				BackgroundColor: color.RGBA{0x64, 0x64, 0x64, 0xff},
-				ForegroundColor: color.RGBA{0xff, 0xff, 0xff, 0xff},
-			},
-		}
+		styleState = darkStyleState
 	} else {
-		styleState = StyleState{
-			Idle: Style{
-				BackgroundColor: color.RGBA{0xff, 0xff, 0xff, 0xff},
-				ForegroundColor: color.RGBA{0xff, 0xff, 0xff, 0xff},
-			},
-			Disabled: &Style{
-				BackgroundColor: color.RGBA{0x88, 0x88, 0x88, 0xff},
-				ForegroundColor: color.RGBA{0xff, 0xff, 0xff, 0xff},
-			},
-			Hover: &Style{
-				BackgroundColor: color.RGBA{0x3f, 0x3f, 0x3f, 0xff},
-				ForegroundColor: color.RGBA{0xff, 0xff, 0xff, 0xff},
-			},
-			Pressed: &Style{
-				BackgroundColor: color.RGBA{0x64, 0x64, 0x64, 0xff},
-				ForegroundColor: color.RGBA{0xff, 0xff, 0xff, 0xff},
-			},
-		}
+		styleState = lightStyleState
 	}
 	return &Theme{
 		ButtonStyle:      styleState,

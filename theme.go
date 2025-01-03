@@ -9,6 +9,45 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/text/v2"
 )
 
+
+var darkStyleState = styleState = StyleState{
+	Idle: Style{
+		BackgroundColor: color.RGBA{0x0f, 0x0f, 0x0f, 0xff},
+		ForegroundColor: color.RGBA{0x00, 0x00, 0x00, 0xff},
+	},
+	Disabled: &Style{
+		BackgroundColor: color.RGBA{0x88, 0x88, 0x88, 0xff},
+		ForegroundColor: color.RGBA{0x00, 0x00, 0x00, 0xff},
+	},
+	Hover: &Style{
+		BackgroundColor: color.RGBA{0x3f, 0x3f, 0x3f, 0xff},
+		ForegroundColor: color.RGBA{0x3f, 0x3f, 0x3f, 0xff},
+	},
+	Pressed: &Style{
+		BackgroundColor: color.RGBA{0x64, 0x64, 0x64, 0xff},
+		ForegroundColor: color.RGBA{0xff, 0xff, 0xff, 0xff},
+	},
+}
+
+var lightStyleState = StyleState{
+	Idle: Style{
+		BackgroundColor: color.RGBA{0xff, 0xff, 0xff, 0xff},
+		ForegroundColor: color.RGBA{0xff, 0xff, 0xff, 0xff},
+	},
+	Disabled: &Style{
+		BackgroundColor: color.RGBA{0x88, 0x88, 0x88, 0xff},
+		ForegroundColor: color.RGBA{0xff, 0xff, 0xff, 0xff},
+	},
+	Hover: &Style{
+		BackgroundColor: color.RGBA{0x3f, 0x3f, 0x3f, 0xff},
+		ForegroundColor: color.RGBA{0xff, 0xff, 0xff, 0xff},
+	},
+	Pressed: &Style{
+		BackgroundColor: color.RGBA{0x64, 0x64, 0x64, 0xff},
+		ForegroundColor: color.RGBA{0xff, 0xff, 0xff, 0xff},
+	},
+}
+
 // Theme represents the theme data for EbitenUI.
 type Theme struct {
 	ButtonStyle      StyleState `yaml:"button"`
